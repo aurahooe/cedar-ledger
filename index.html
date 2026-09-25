@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cedar Ledger</title>
+  <meta name="description" content="A small public wall. Notes stay in your drawer unless you pin them. The edition turns every hour." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="top">
+    <a class="mark" href="/">
+      <span class="knot"></span>
+      Cedar Ledger
+    </a>
+    <nav>
+      <a href="#wall">Wall</a>
+      <a href="#desk">Desk</a>
+      <button id="authBtn" type="button">Sign in</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="kicker" id="hourLabel">This hour</p>
+      <h1 id="headline">The ledger is open</h1>
+      <p class="lede" id="blurb">A new hour on cedar. Write something only you can see, or pin it to the wall.</p>
+      <div class="meter">
+        <div class="meter-fill" id="meterFill"></div>
+      </div>
+      <p class="tick" id="tick">—</p>
+    </section>
+
+    <section id="wall" class="panel">
+      <div class="panel-head">
+        <h2>On the wall</h2>
+        <p>Only slips marked public live here.</p>
+      </div>
+      <div id="wallList" class="grid"></div>
+    </section>
+
+    <section id="desk" class="panel desk">
+      <div class="panel-head">
+        <h2>Your desk</h2>
+        <p id="deskHint">Sign in to keep a drawer. Public slips appear on the wall immediately.</p>
+      </div>
+      <form id="slipForm" hidden>
+        <label>
+          Title
+          <input name="title" maxlength="140" required placeholder="A short heading" />
+        </label>
+        <label>
+          Body
+          <textarea name="body" maxlength="8000" required rows="7" placeholder="What belongs on paper this hour."></textarea>
+        </label>
+        <label class="check">
+          <input type="checkbox" name="is_public" />
+          Pin to the public wall
+        </label>
+        <button type="submit">Save slip</button>
+      </form>
+      <div id="myList" class="stack"></div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" hidden>
+    <div class="sheet">
+      <h3 id="modalTitle">Sign in</h3>
+      <form id="authForm">
+        <label>
+          Email
+          <input name="email" type="email" required autocomplete="email" />
+        </label>
+        <label>
+          Password
+          <input name="password" type="password" required minlength="6" autocomplete="current-password" />
+        </label>
+        <div class="row">
+          <button type="submit" data-mode="signin">Enter</button>
+          <button type="button" id="toggleMode" class="ghost">Need an account?</button>
+        </div>
+        <p class="fine" id="authMsg"></p>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>Cedar Ledger keeps private slips private. The hour on the masthead is written once an hour.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
